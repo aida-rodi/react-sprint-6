@@ -46,14 +46,24 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  width: 75px;
+  margin-right: 3px;
+  margin-left: 3px;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #242424;
 }
-button:focus,
+
+.active {
+  background-color: #242424;
+  color: #f9f9f9;
+  transition: all .3s ease-out;
+}
+
+/* button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+  outline: auto -webkit-focus-ring-color;
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
