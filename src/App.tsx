@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useState } from 'react';
+import { story } from './assets/story';
+import { ShowStory } from './components/scene';
+import { SceneBackground } from './styled-components/scene-background';
+import { SceneButton } from './styled-components/scene-buttons';
+import { WelcomeScreen } from './components/welcomeScreen';
+import { WelcomeScreenBackground } from './styled-components/welcomeScreen-background';
+import { WelcomeScreenButton } from './styled-components/welcomeScreen-button';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [welcomeScreen, showWelcomeScreen] = useState(true);
+  const [activeSentenceId, setActiveSentenceId] = useState(1);
+
+  const hideScreen = () => {
+    showWelcomeScreen(false);
+  };
+
+  const previousSentence = () => {
+    activeSentenceId === 1 ?
+    setActiveSentenceId(story.length) :
+    setActiveSentenceId(activeSentenceId - 1)
+  };
+
+  const nextSentence = () => {
+    activeSentenceId === story.length ?
+    setActiveSentenceId(1) :
+    setActiveSentenceId(activeSentenceId + 1)
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {welcomeScreen ? (
+        <WelcomeScreenBackground>
+          < WelcomeScreen/>
+          <WelcomeScreenButton onClick={ hideScreen }>Començar</WelcomeScreenButton>
+        </WelcomeScreenBackground>
+      ) : (
+        <SceneBackground img={`${story[activeSentenceId -1].image}`} >
+          <SceneButton onClick={ previousSentence }>Anterior</SceneButton>
+          <SceneButton onClick={ nextSentence }>Següent</SceneButton>
+          <ShowStory activeSentence={ activeSentenceId } />
+        </SceneBackground>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
