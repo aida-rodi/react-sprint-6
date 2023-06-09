@@ -1,40 +1,49 @@
-import { ShowStory } from './components/scene/scene';
-import { StyledButton } from './components/styled-components/styled-button';
 import './App.css';
 import { useState } from 'react';
 import { story } from './assets/story';
+import { ShowStory } from './components/scene';
+import { SceneBackground } from './styled-components/scene-background';
+import { SceneButton } from './styled-components/scene-buttons';
+import { WelcomeScreen } from './components/welcomeScreen';
+import { WelcomeScreenBackground } from './styled-components/welcomeScreen-background';
+import { WelcomeScreenButton } from './styled-components/welcomeScreen-button';
 
 function App() {
+  const [welcomeScreen, showWelcomeScreen] = useState(true);
+  const [activeSentenceId, setActiveSentenceId] = useState(1);
 
-  const [activeSentenceId, setActiveSentenceId] = useState(1)
+  const hideScreen = () => {
+    showWelcomeScreen(false);
+  };
 
   const previousSentence = () => {
-    if (activeSentenceId === 1) {
-      setActiveSentenceId(story.length);
-    } else {
-      setActiveSentenceId(activeSentenceId -1)
-    }
-  }
+    activeSentenceId === 1 ?
+    setActiveSentenceId(story.length) :
+    setActiveSentenceId(activeSentenceId - 1)
+  };
 
   const nextSentence = () => {
-    if (activeSentenceId === story.length) {
-      setActiveSentenceId(1);
-    } else {
-      setActiveSentenceId(activeSentenceId +1)
-    }
-  }
+    activeSentenceId === story.length ?
+    setActiveSentenceId(1) :
+    setActiveSentenceId(activeSentenceId + 1)
+  };
 
   return (
-    <div>
-      <StyledButton onClick={ previousSentence }>Anterior</StyledButton>
-      <StyledButton onClick={ nextSentence }>Següent</StyledButton>
-      <ShowStory 
-        activeSentence={ activeSentenceId }
-      />
-    </div>
-  ) 
-  
-
-};
+    <>
+      {welcomeScreen ? (
+        <WelcomeScreenBackground>
+          < WelcomeScreen/>
+          <WelcomeScreenButton onClick={ hideScreen }>Començar</WelcomeScreenButton>
+        </WelcomeScreenBackground>
+      ) : (
+        <SceneBackground img={`${story[activeSentenceId -1].image}`} >
+          <SceneButton onClick={ previousSentence }>Anterior</SceneButton>
+          <SceneButton onClick={ nextSentence }>Següent</SceneButton>
+          <ShowStory activeSentence={ activeSentenceId } />
+        </SceneBackground>
+      )}
+    </>
+  );
+}
 
 export default App;
