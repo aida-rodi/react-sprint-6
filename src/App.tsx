@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { story } from './assets/story';
-import { ShowStory } from './components/scene';
+import { Scene } from './components/scene';
 import { SceneBackground } from './styled-components/scene-background';
 import { SceneButton } from './styled-components/scene-buttons';
 import { WelcomeScreen } from './components/welcomeScreen';
@@ -39,7 +39,7 @@ function App() {
         <SceneBackground img={`${story[activeSentenceId -1].image}`} >
           <SceneButton onClick={ previousSentence }>Anterior</SceneButton>
           <SceneButton onClick={ nextSentence }>Següent</SceneButton>
-          <ShowStory activeSentence={ activeSentenceId } />
+          <Scene activeSentence={ activeSentenceId } />
         </SceneBackground>
       )}
     </>

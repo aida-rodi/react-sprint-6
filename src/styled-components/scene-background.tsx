@@ -6,7 +6,7 @@ interface Props {
 
 export const SceneBackground = styled.div<Props>`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   background-image: url(${({img}) => img});
   background-size: cover;
   background-position: center;

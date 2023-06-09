@@ -6,7 +6,7 @@ interface Props {
   activeSentence: number
 }
 
-export const ShowStory:FC<Props> = ({ activeSentence }) => {
+export const Scene:FC<Props> = ({ activeSentence }) => {
   return (
     <>
       {
